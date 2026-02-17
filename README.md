@@ -1,1 +1,154 @@
-# test
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scan to Pay via GCash</title>
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 420px;
+  margin: 30px auto;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  text-align: center;
+}
+
+h2 {
+  color: #0d5cc1;
+  font-size: 20px;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+}
+
+.qr-box img {
+  width: 230px;
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  margin-bottom: 15px;
+}
+
+.info {
+  font-size: 15px;
+  margin: 8px 0;
+}
+
+.gcash-number {
+  color: #0d5cc1;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.gcash-number:hover {
+  text-decoration: underline;
+}
+
+#copy-msg {
+  font-size: 12px;
+  color: green;
+  display: none;
+  margin-top: 5px;
+}
+
+.notice {
+  font-size: 13px;
+  color: #444;
+  margin: 15px 0;
+}
+
+.btn {
+  display: block;
+  padding: 14px;
+  margin: 12px 0;
+  border-radius: 10px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.messenger {
+  background: #1877f2;
+}
+
+.messenger:hover {
+  background: #0f5ec4;
+}
+
+.call {
+  background: #2e8b57;
+}
+
+.call:hover {
+  background: #1f6b3f;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h2>📲 SCAN TO PAY VIA GCASH</h2>
+
+  <div class="qr-box">
+    <!-- PALITAN MO ITO NG QR IMAGE LINK MO -->
+    <img src="https://i.imgur.com/OEKxpqV.png" alt="GCash QR Code">
+  </div>
+
+  <div class="info">
+    GCash Name: <strong>MA***N M.</strong>
+  </div>
+
+  <div class="info">
+    GCash Number:
+    <span class="gcash-number" onclick="copyNumber()">
+      09665084666
+    </span>
+  </div>
+
+  <div id="copy-msg">✔ Number copied</div>
+
+  <div class="notice">
+    If you have already made a payment, kindly contact us to confirm and reconnect your service.
+  </div>
+
+  <a class="btn messenger"
+     href="https://www.facebook.com/mtechfiberservices"
+     target="_blank">
+     💬 Chat us on Messenger
+  </a>
+
+  <a class="btn call" href="tel:+639241030898">
+     📞 Call us: 0924-103-0898
+  </a>
+
+</div>
+
+<script>
+function copyNumber() {
+  const number = "09665084666";
+  navigator.clipboard.writeText(number);
+
+  const msg = document.getElementById("copy-msg");
+  msg.style.display = "block";
+
+  setTimeout(() => {
+    msg.style.display = "none";
+  }, 2000);
+}
+</script>
+
+</body>
+</html>
