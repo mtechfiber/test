@@ -37,7 +37,6 @@ body {
   background: rgba(255,255,255,0.05);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 0 40px rgba(0,0,0,0.6);
   text-align: center;
 }
 
@@ -54,21 +53,37 @@ body {
   margin: 15px 0;
 }
 
-.pay-now-btn {
-  display: block;
+.pay-now {
   padding: 14px;
   border-radius: 10px;
   font-weight: bold;
-  margin-top: 20px;
+  margin-top: 15px;
   background: linear-gradient(135deg, #22c55e, #16a34a);
-  text-align: center;
-  color: white;
-  text-decoration: none;
-  transition: 0.3s;
+  cursor: pointer;
 }
 
-.pay-now-btn:hover {
-  transform: scale(1.05);
+.payment-group {
+  display: none;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.payment-group button {
+  flex: 1;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.gcash-btn { 
+  background: linear-gradient(135deg, #007dff, #005fcc);
+}
+
+.maya-btn { 
+  background: linear-gradient(135deg, #00b14f, #008f3f);
 }
 
 .contact-btn {
@@ -78,7 +93,6 @@ body {
   font-weight: bold;
   margin-top: 15px;
   cursor: pointer;
-  text-align: center;
   background: #0084ff;
 }
 
@@ -88,7 +102,7 @@ body {
   opacity: 0.6;
 }
 
-/* CONTACT MODAL */
+/* MODAL */
 .modal {
   display: none;
   position: fixed;
@@ -111,6 +125,12 @@ body {
   width: 320px;
 }
 
+.modal-content img {
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
 .close-btn {
   position: absolute;
   top: 10px;
@@ -119,17 +139,35 @@ body {
   cursor: pointer;
 }
 
+.number-box {
+  background: rgba(255,255,255,0.08);
+  padding: 10px;
+  border-radius: 6px;
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+.copy-btn {
+  background: #22c55e;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+  width: 100%;
+  margin-top: 8px;
+}
+
 .option-btn {
   margin-top: 12px;
   padding: 10px;
   border-radius: 8px;
-  border: none;
   width: 100%;
   font-weight: bold;
-  cursor: pointer;
-  color: white;
   text-decoration: none;
   display: block;
+  color: white;
 }
 
 .call-btn { background: #16a34a; }
@@ -143,7 +181,7 @@ body {
 <div class="container">
 
   <div class="logo">
-    <img src="mtech.logo1.png" alt="MTECH Logo">
+    <img src="mtech.logo1.png">
   </div>
 
   <h2>Service Temporarily Restricted</h2>
@@ -153,15 +191,31 @@ body {
     Please settle your account to restore access.
   </div>
 
-  <!-- PAY NOW LINK (DIRECT TO index.html1) -->
-  <a href="index.html1" class="pay-now-btn">
+  <div class="pay-now" onclick="togglePayments()">
     💳 PAY NOW
-  </a>
+  </div>
+
+  <div class="payment-group" id="paymentOptions">
+    <button class="gcash-btn" onclick="openQR('gcash')">GCash</button>
+    <button class="maya-btn" onclick="openQR('maya')">Maya</button>
+  </div>
 
   <div class="contact-btn" onclick="openContact()">💬 Contact Support</div>
 
   <div class="footer">© 2026 MTECH Fiber | Secure Access Portal</div>
 
+</div>
+
+<!-- QR MODAL -->
+<div id="qrModal" class="modal" onclick="closeAll()">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <span class="close-btn" onclick="closeAll()">✖</span>
+    <h3 id="qrTitle">Scan to Pay</h3>
+    <img id="qrImage">
+    <div>MA•••N M.</div>
+    <div class="number-box" id="payNumber">0966-508-4666</div>
+    <button class="copy-btn" onclick="copyNumber(this)">COPY NUMBER</button>
+  </div>
 </div>
 
 <!-- CONTACT MODAL -->
@@ -175,13 +229,55 @@ body {
 </div>
 
 <script>
+
+function togglePayments() {
+  const options = document.getElementById("paymentOptions");
+  options.style.display = (options.style.display === "flex") ? "none" : "flex";
+}
+
+function openQR(type) {
+  const modal = document.getElementById("qrModal");
+  const qrImage = document.getElementById("qrImage");
+  const qrTitle = document.getElementById("qrTitle");
+
+  if (type === "gcash") {
+    qrImage.src = "mtech.spc.gcash.png";
+    qrTitle.innerText = "Scan to Pay (GCash)";
+  }
+
+  if (type === "maya") {
+    qrImage.src = "mtech.spc.maya.png";
+    qrTitle.innerText = "Scan to Pay (Maya)";
+  }
+
+  modal.style.display = "flex";
+}
+
 function openContact() {
   document.getElementById("contactModal").style.display = "flex";
 }
 
+function copyNumber(button) {
+  const number = document.getElementById("payNumber").innerText;
+
+  const textarea = document.createElement("textarea");
+  textarea.value = number.replace(/-/g, '');
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand("copy");
+  document.body.removeChild(textarea);
+
+  button.innerText = "✓ COPIED";
+  setTimeout(() => {
+    button.innerText = "COPY NUMBER";
+  }, 1500);
+}
+
 function closeAll() {
+  document.getElementById("qrModal").style.display = "none";
   document.getElementById("contactModal").style.display = "none";
 }
+
 </script>
 
 </body>
