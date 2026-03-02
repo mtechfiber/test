@@ -48,7 +48,7 @@ body {
 }
 
 h2 {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 750;
   margin-bottom: 10px;
   color: #aaaaaa;
@@ -100,6 +100,10 @@ h2 {
 
 .maya-btn { 
   background: linear-gradient(135deg, #00b14f, #008f3f);
+}
+
+.bpi-btn {
+  background: linear-gradient(135deg, #b11116, #7a0c10);
 }
 
 .contact-btn {
@@ -247,6 +251,7 @@ h2 {
   <div class="payment-group" id="paymentOptions">
     <button class="gcash-btn" onclick="openQR('gcash')">GCash</button>
     <button class="maya-btn" onclick="openQR('maya')">Maya</button>
+    <button class="bpi-btn" onclick="openQR('bpi')">BPI</button>
   </div>
 
   <div class="contact-btn" onclick="openContact()">💬 Contact Support</div>
@@ -310,6 +315,12 @@ function openQR(type) {
     qrImage.src = "maya.png";
     qrTitle.innerText = "Scan to Pay (Maya)";
   }
+
+   if (type === "bpi") {
+    qrImage.src = "bpi.png";
+    qrTitle.innerText = "Bank Transfer (BPI)";
+  }
+
 
   modal.style.display = "flex";
 }
